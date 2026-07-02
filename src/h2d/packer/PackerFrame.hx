@@ -37,7 +37,7 @@ class PackerFrame
         final width:Float = width * parent.scaleX;
         final height:Float = height * parent.scaleY;
 
-        ctx.clipRenderZone(parent.x - width / 2, parent.y - height / 2, width, height);
+        ctx.pushRenderZone(parent.x - width / 2, parent.y - height / 2, width, height);
         ctx.drawTile(parent, parent.tile);
         ctx.popRenderZone();
     }
