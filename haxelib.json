@@ -1,0 +1,14 @@
+{
+    "name": "heaps-packer",
+    "url": "https://github.com/realvirtu/heaps-packer",
+    "license": "MIT",
+    "tags": ["packer", "heaps"],
+    "description": "Packer spritesheet player for Heaps.",
+    "version": "1.0.0",
+    "classPath": "src/",
+    "releasenote": "Initial release",
+    "contributors": ["Virtu"],
+    "dependencies": {
+        "heaps": ""
+    }
+}
