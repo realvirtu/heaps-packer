@@ -25,3 +25,9 @@ packer.anims.play("anim");
 // Update your packer object via update()
 packer.update(dt);
 ```
+
+## TODO
+
+- [ ] Fix small clipping problems when rotating a `Sparrow`.
+- [ ] Implement `addIndices` to `SparrowAnimSet`.
+- [ ] Publish to Haxelib.
