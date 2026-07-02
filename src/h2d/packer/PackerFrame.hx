@@ -25,10 +25,15 @@ class PackerFrame
     {
         if (parent.tile == null) return;
 
-        parent.tile.dx = -x;
-        parent.tile.dy = -y;
+        parent.tile.dx = -width / 2;
+        parent.tile.dy = -height / 2;
+        
+        parent.tile.setPosition(x, y);
 
-        ctx.clipRenderZone(parent.x, parent.y, width * parent.scaleX, height * parent.scaleY);
+        final width:Float = width * parent.scaleX;
+        final height:Float = height * parent.scaleY;
+
+        ctx.clipRenderZone(parent.x - width / 2, parent.y - height / 2, width, height);
         ctx.drawTile(parent, parent.tile);
         ctx.popRenderZone();
     }
