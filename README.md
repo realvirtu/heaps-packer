@@ -4,9 +4,7 @@ Heaps-Packer is a packer spritesheet player for the [Heaps](https://heaps.io) ga
 
 ## Installation
 
-Please note that there is no Haxelib page currently, so this must be installed through git.
-
-- Install by running `haxelib git heaps-packer https://github.com/realvirtu/heaps-packer`.
+- Install by running `haxelib install heaps-packer`.
 - Add `-lib heaps-packer` to your project's `.hxml` file.
 - Have fun!
 
@@ -29,4 +27,3 @@ packer.update(dt);
 
 - [ ] Fix small clipping problems when rotating a `Sparrow`.
 - [ ] Implement `addIndices` to `SparrowAnimSet`.
-- [ ] Publish to Haxelib.
