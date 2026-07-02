@@ -1,5 +1,9 @@
 package h2d.packer;
 
+/**
+ * A single frame of a `Packer` object. The rendering of a `Packer` is handled here.
+ */
+@:access(h2d.packer.Packer)
 class PackerFrame
 {
     public var name:String;

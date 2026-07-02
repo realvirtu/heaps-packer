@@ -2,6 +2,9 @@ package h2d.packer;
 
 import haxe.ds.StringMap;
 
+/**
+ * A handler for `Packer` animation rendering.
+ */
 class PackerAnimSet
 {
     public var anims(default, null) = new StringMap<PackerAnim>();
@@ -21,9 +24,9 @@ class PackerAnimSet
         current.update(dt);
     }
 
-    public function add(name:String, prefix:String, framerate:Int = 24, looped:Bool = true)
+    public function add(name:String, prefix:String, framerate:Int = 24, loop:Bool = true)
     {
-        anims.set(name, new PackerAnim(name, prefix, framerate, looped, parent));
+        anims.set(name, new PackerAnim(name, prefix, framerate, loop, parent));
     }
 
     public function remove(name:String)
@@ -41,12 +44,14 @@ class PackerAnimSet
         return anims.exists(name);
     }
 
-    public function play(name:String)
+    public function play(name:String, force:Bool = false, reverse:Bool = false)
     {
-        if (!exists(name)) return;
+        if (!exists(name) || (current?.name == name && !force)) return;
 
         current = anims.get(name);
-        current.currentFrame = 0;
+
+        current.currentFrame = reverse ? current.length - 1 : 0;
+        current.reverse = reverse;
     }
 
     public function stop()

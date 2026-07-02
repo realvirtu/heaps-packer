@@ -2,27 +2,34 @@ package h2d.packer;
 
 using StringTools;
 
+/**
+ * A class for playing a sequence of frames for a `Packer` object.
+ * The frames played depend on the `prefix` specified.
+ */
 @:access(h2d.packer.Packer)
 class PackerAnim
 {
     public var name(default, null):String;
     public var prefix(default, null):String;
     public var framerate:Int;
-    public var looped:Bool;
+    public var loop:Bool;
 
     public var parent:Packer;
 
-    public var currentFrame:Float = 0;
+    public var length(get, never):Int;
+
+    public var currentFrame:Float;
+    public var reverse:Bool;
 
     var startIndex:Int;
     var endIndex:Int;
 
-    public function new(name:String, prefix:String, framerate:Int, looped:Bool, parent:Packer)
+    public function new(name:String, prefix:String, framerate:Int, loop:Bool, parent:Packer)
     {
         this.name = name;
         this.prefix = prefix;
-        this.framerate = framerate;
-        this.looped = looped;
+        this.framerate = Std.int(Math.max(0, framerate));
+        this.loop = loop;
 
         this.parent = parent;
 
@@ -35,15 +42,27 @@ class PackerAnim
 
     public function update(dt:Float)
     {
-        final end:Int = endIndex - startIndex;
+        final speed:Float = dt / (1 / framerate);
+        final direction:Int = reverse ? -1 : 1;
 
-        currentFrame += dt / (1 / framerate);
+        currentFrame += speed * direction;
 
-        if (looped)
-            currentFrame %= end + 1;
+        if (loop)
+        {
+            if (currentFrame < 0)
+                currentFrame = length - 1;
+            else if (currentFrame >= length)
+                currentFrame = 0;
+        }
         else
-            currentFrame = Math.min(end, currentFrame);
+            currentFrame = Math.max(0, Math.min(length - 1, currentFrame));
 
         parent.setFrame(Std.int(currentFrame) + startIndex);
+    }
+
+    @:noCompletion
+    inline function get_length():Int
+    {
+        return endIndex - startIndex + 1;
     }
 }

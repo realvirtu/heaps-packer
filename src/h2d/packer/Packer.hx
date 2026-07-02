@@ -2,13 +2,17 @@ package h2d.packer;
 
 using StringTools;
 
+/**
+ * A 2D object that allows for the rendering of the packer spritesheet format.
+ */
 class Packer extends Drawable
 {
-    public var tile:Tile;
     public var anims:PackerAnimSet;
 
     var frames:Array<PackerFrame>;
     var frame:PackerFrame;
+
+    var tile:Tile;
     
     public function new(?parent:Object)
     {
