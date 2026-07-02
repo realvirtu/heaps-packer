@@ -44,13 +44,13 @@ class PackerAnimSet
         return anims.exists(name);
     }
 
-    public function play(name:String, force:Bool = false, reverse:Bool = false)
+    public function play(name:String, reverse:Bool = false, frame:Int = 0)
     {
-        if (!exists(name) || (current?.name == name && !force)) return;
+        if (!exists(name)) return;
 
         current = anims.get(name);
 
-        current.currentFrame = reverse ? current.length - 1 : 0;
+        current.currentFrame = frame;
         current.reverse = reverse;
     }
 

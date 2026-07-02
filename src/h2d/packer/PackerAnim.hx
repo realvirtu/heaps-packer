@@ -42,22 +42,19 @@ class PackerAnim
 
     public function update(dt:Float)
     {
-        final speed:Float = dt / (1 / framerate);
-        final direction:Int = reverse ? -1 : 1;
-
-        currentFrame += speed * direction;
+        currentFrame += dt / (1 / framerate);
 
         if (loop)
-        {
-            if (currentFrame < 0)
-                currentFrame = length - 1;
-            else if (currentFrame >= length)
-                currentFrame = 0;
-        }
+            currentFrame %= length;
         else
-            currentFrame = Math.max(0, Math.min(length - 1, currentFrame));
+            currentFrame = Math.min(length - 1, currentFrame);
 
-        parent.setFrame(Std.int(currentFrame) + startIndex);
+        var frame:Int = Std.int(currentFrame) + startIndex;
+
+        if (reverse)
+            frame = endIndex - frame;
+
+        parent.setFrame(frame);
     }
 
     @:noCompletion

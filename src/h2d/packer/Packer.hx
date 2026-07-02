@@ -7,7 +7,7 @@ using StringTools;
  */
 class Packer extends Drawable
 {
-    public var anims:PackerAnimSet;
+    public var anims(default, null):PackerAnimSet;
 
     var frames:Array<PackerFrame>;
     var frame:PackerFrame;
