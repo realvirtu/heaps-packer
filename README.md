@@ -25,5 +25,5 @@ packer.update(dt);
 
 ## TODO
 
-- [ ] Fix small clipping problems when rotating a `Sparrow`.
-- [ ] Implement `addIndices` to `SparrowAnimSet`.
+- [ ] Fix small clipping problems when rotating a `Packer`.
+- [ ] Implement `addIndices` to `PackerAnimSet`.
