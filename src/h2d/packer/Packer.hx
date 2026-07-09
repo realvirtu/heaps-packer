@@ -33,7 +33,7 @@ class Packer extends Drawable
         frames = [];
         frame = null;
 
-        final anims:Array<String> = data.trim().split('\n');
+        final anims:Array<String> = data?.trim()?.split('\n');
 
         if (anims == null) return;
 

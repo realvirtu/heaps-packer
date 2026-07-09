@@ -14,6 +14,8 @@ class PackerFrame
 
     public var parent:Packer;
 
+    var tile:Tile;
+
     public function new(name:String, x:Int, y:Int, width:Int, height:Int, parent:Packer)
     {
         this.name = name;
@@ -23,22 +25,19 @@ class PackerFrame
         this.height = height;
 
         this.parent = parent;
+
+        if (parent.tile == null) return;
+
+        tile = parent.tile.sub(x, y, width, height);
+        tile.dx = -width / 2;
+        tile.dy = -height / 2;
+        tile.setPosition(x, y);
     }
 
     public function draw(ctx:RenderContext)
     {
-        if (parent.tile == null) return;
+        if (tile == null) return;
 
-        parent.tile.dx = -width / 2;
-        parent.tile.dy = -height / 2;
-        
-        parent.tile.setPosition(x, y);
-
-        final width:Float = width * parent.scaleX;
-        final height:Float = height * parent.scaleY;
-
-        ctx.pushRenderZone(parent.x - width / 2, parent.y - height / 2, width, height);
-        ctx.drawTile(parent, parent.tile);
-        ctx.popRenderZone();
+        ctx.drawTile(parent, tile);
     }
 }

@@ -25,5 +25,4 @@ packer.update(dt);
 
 ## TODO
 
-- [ ] Fix small clipping problems when rotating a `Packer`.
-- [ ] Implement `addIndices` to `PackerAnimSet`.
+- Implement `addIndices` to `PackerAnimSet`.
