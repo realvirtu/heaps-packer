@@ -12,6 +12,8 @@ class PackerAnimSet
 
     public var parent:Packer;
 
+    public var onFinish:String->Void;
+
     public function new(parent:Packer)
     {
         this.parent = parent;
@@ -50,6 +52,11 @@ class PackerAnimSet
 
         current = anims.get(name);
         current.play(reverse, frame);
+
+        current.onFinish = () -> {
+            if (onFinish != null)
+                onFinish(current.name);
+        }
     }
 
     public function stop()

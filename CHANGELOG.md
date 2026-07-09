@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- The current Packer animation is no longer set to null when stopped.
+- Changed Packer animation handling to include a callback for when the current animation finishes.
 
 ### Fixed
 

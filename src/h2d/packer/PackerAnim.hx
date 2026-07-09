@@ -22,6 +22,8 @@ class PackerAnim
     public var currentFrame(default, set):Float;
     public var length(get, never):Int;
 
+    public var onFinish:Void->Void;
+
     var startIndex:Int;
     var endIndex:Int;
 
@@ -46,9 +48,6 @@ class PackerAnim
         if (!playing) return;
 
         currentFrame += dt / (1 / framerate);
-
-        if (!loop && currentFrame >= length - 1)
-            stop();
 
         var frame:Int = Std.int(currentFrame) + startIndex;
 
@@ -75,9 +74,22 @@ class PackerAnim
     inline function set_currentFrame(value:Float):Float
     {
         if (loop)
-            value %= length;
+        {
+            if (value >= length)
+                value = 0;
+            else if (value < 0)
+                value = length - 1;
+        }
         else
             value = Math.max(0, Math.min(length - 1, value));
+
+        if (value >= length - 1 && !loop && playing)
+        {
+            stop();
+
+            if (onFinish != null)
+                onFinish();
+        }
 
         return currentFrame = value;
     }
