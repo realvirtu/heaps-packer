@@ -49,13 +49,13 @@ class PackerAnimSet
         if (!exists(name)) return;
 
         current = anims.get(name);
-
-        current.currentFrame = frame;
-        current.reverse = reverse;
+        current.play(reverse, frame);
     }
 
     public function stop()
     {
-        current = null;
+        if (current == null) return;
+
+        current.stop();
     }
 }

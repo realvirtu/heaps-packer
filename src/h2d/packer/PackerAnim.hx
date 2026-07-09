@@ -16,10 +16,11 @@ class PackerAnim
 
     public var parent:Packer;
 
-    public var length(get, never):Int;
-
-    public var currentFrame:Float;
+    public var playing:Bool;
     public var reverse:Bool;
+
+    public var currentFrame(default, set):Float;
+    public var length(get, never):Int;
 
     var startIndex:Int;
     var endIndex:Int;
@@ -42,12 +43,12 @@ class PackerAnim
 
     public function update(dt:Float)
     {
+        if (!playing) return;
+
         currentFrame += dt / (1 / framerate);
 
-        if (loop)
-            currentFrame %= length;
-        else
-            currentFrame = Math.min(length - 1, currentFrame);
+        if (!loop && currentFrame >= length - 1)
+            stop();
 
         var frame:Int = Std.int(currentFrame) + startIndex;
 
@@ -55,6 +56,30 @@ class PackerAnim
             frame = endIndex - frame;
 
         parent.setFrame(frame);
+    }
+
+    public function play(reverse:Bool, frame:Int)
+    {
+        this.reverse = reverse;
+        this.currentFrame = frame;
+
+        playing = true;
+    }
+
+    public function stop()
+    {
+        playing = false;
+    }
+
+    @:noCompletion
+    inline function set_currentFrame(value:Float):Float
+    {
+        if (loop)
+            value %= length;
+        else
+            value = Math.max(0, Math.min(length - 1, value));
+
+        return currentFrame = value;
     }
 
     @:noCompletion
