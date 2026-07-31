@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Implemented addIndices(), allowing for animations to contain a specific set of frames.
+- Implemented a way to resume the current animation.
 
 ### Changed
 

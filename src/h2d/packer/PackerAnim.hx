@@ -6,22 +6,23 @@ using StringTools;
  * A class for playing a sequence of frames for a `Packer` object.
  * The frames played depend on the `prefix` specified.
  */
-@:access(h2d.packer.Packer)
 class PackerAnim
 {
     public var name(default, null):String;
     public var prefix(default, null):String;
     public var indices(default, null):Array<Int>;
-    public var framerate:Int;
     public var loop:Bool;
+    public var framerate:Int;
 
     public var parent:Packer;
 
-    public var playing:Bool;
-    public var reverse:Bool;
+    public var playing(default, null):Bool;
+    public var finished(default, null):Bool;
 
     public var currentFrame(default, set):Float;
     public var length(get, never):Int;
+    
+    public var reverse:Bool;
 
     public var onFinish:Void->Void;
 
@@ -59,6 +60,14 @@ class PackerAnim
         this.currentFrame = frame;
 
         playing = true;
+        finished = false;
+    }
+
+    public function resume()
+    {
+        if (finished) return;
+
+        playing = true;
     }
 
     public function stop()
@@ -83,8 +92,13 @@ class PackerAnim
         {
             stop();
 
-            if (onFinish != null)
-                onFinish();
+            if (!finished)
+            {
+                finished = true;
+
+                if (onFinish != null)
+                    onFinish();
+            }
         }
 
         return currentFrame = value;

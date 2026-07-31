@@ -67,6 +67,13 @@ class PackerAnimSet
         }
     }
 
+    public function resume()
+    {
+        if (current == null) return;
+
+        current.resume();
+    }
+
     public function stop()
     {
         if (current == null) return;
