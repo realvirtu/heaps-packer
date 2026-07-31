@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.1] - 2026-07-XX
 
+### Added
+
+- Implemented addIndices(), allowing for animations to contain a specific set of frames.
+
 ### Changed
 
 - Changed Packer animation handling to include a callback for when the current animation finishes.

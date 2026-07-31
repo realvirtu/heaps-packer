@@ -11,6 +11,7 @@ class PackerAnim
 {
     public var name(default, null):String;
     public var prefix(default, null):String;
+    public var indices(default, null):Array<Int>;
     public var framerate:Int;
     public var loop:Bool;
 
@@ -24,23 +25,18 @@ class PackerAnim
 
     public var onFinish:Void->Void;
 
-    var startIndex:Int;
-    var endIndex:Int;
+    var frames:Array<PackerFrame>;
 
-    public function new(name:String, prefix:String, framerate:Int, loop:Bool, parent:Packer)
+    public function new(name:String, prefix:String, indices:Array<Int>, framerate:Int, loop:Bool, parent:Packer)
     {
         this.name = name;
-        this.prefix = prefix;
         this.framerate = Std.int(Math.max(0, framerate));
         this.loop = loop;
 
         this.parent = parent;
 
-        final frames:Array<PackerFrame> = parent.frames;
-        final animFrames:Array<PackerFrame> = frames.filter(f -> return f.name.startsWith(prefix));
-
-        startIndex = frames.indexOf(animFrames[0]);
-        endIndex = frames.lastIndexOf(animFrames[animFrames.length - 1]);
+        this.frames = parent.frames.filter(f -> return f.name.startsWith(prefix));
+        this.indices = indices;
     }
 
     public function update(dt:Float)
@@ -49,12 +45,12 @@ class PackerAnim
 
         currentFrame += dt / (1 / framerate);
 
-        var frame:Int = Std.int(currentFrame) + startIndex;
+        var frame:Int = Std.int(currentFrame);
 
         if (reverse)
-            frame = endIndex - frame;
+            frame = length - frame - 1;
 
-        parent.setFrame(frame);
+        parent.frame = frames[indices[frame]];
     }
 
     public function play(reverse:Bool, frame:Int)
@@ -97,6 +93,6 @@ class PackerAnim
     @:noCompletion
     inline function get_length():Int
     {
-        return endIndex - startIndex + 1;
+        return indices.length;
     }
 }

@@ -9,8 +9,8 @@ class Packer extends Drawable
 {
     public var anims(default, null):PackerAnimSet;
 
-    var frames:Array<PackerFrame>;
-    var frame:PackerFrame;
+    public var frame:PackerFrame;
+    public var frames:Array<PackerFrame>;
 
     var tile:Tile;
     
@@ -53,15 +53,7 @@ class Packer extends Drawable
             frames.push(new PackerFrame(name, x, y, width, height, this));
         }
 
-        setFrame(0);
-    }
-
-    public function setFrame(index:Int)
-    {
-        if (frames.length == 0) return;
-
-        index = Std.int(Math.max(0, Math.min(frames.length - 1, index)));
-        frame = frames[index];
+        frame = frames[0];
     }
 
     override function draw(ctx:RenderContext)

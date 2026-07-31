@@ -2,6 +2,9 @@ package h2d.packer;
 
 import haxe.ds.StringMap;
 
+using Lambda;
+using StringTools;
+
 /**
  * A handler for `Packer` animation rendering.
  */
@@ -28,7 +31,12 @@ class PackerAnimSet
 
     public function add(name:String, prefix:String, framerate:Int = 24, loop:Bool = true)
     {
-        anims.set(name, new PackerAnim(name, prefix, framerate, loop, parent));
+        addIndices(name, prefix, [for (i in 0...parent.frames.count(f -> return f.name.startsWith(prefix))) i], framerate, loop);
+    }
+
+    public function addIndices(name:String, prefix:String, indices:Array<Int>, framerate:Int = 24, loop:Bool = true)
+    {
+        anims.set(name, new PackerAnim(name, prefix, indices, framerate, loop, parent));
     }
 
     public function remove(name:String)
