@@ -4,9 +4,9 @@
     "license": "MIT",
     "tags": ["packer", "heaps"],
     "description": "Packer spritesheet player for Heaps.",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "classPath": "src/",
-    "releasenote": "Initial release",
+    "releasenote": "Small additions and fixes.",
     "contributors": ["virtu"],
     "dependencies": {
         "heaps": ""
